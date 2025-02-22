@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 
-import ProductsPage from "@/app/products/page";
 import { db } from "@/lib/prisma";
 
 import RestaurantCategories from "./components/categories";

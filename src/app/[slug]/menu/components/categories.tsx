@@ -75,6 +75,9 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
 
           <h3 className="px-5 font-semibold pt-2">{selectedCategory.name}</h3>
           <Products products = {selectedCategory.products}/>
+          <Products products = {selectedCategory.products}/>
+          <Products products = {selectedCategory.products}/>
+          <Products products = {selectedCategory.products}/>
     
     </div>
   );
