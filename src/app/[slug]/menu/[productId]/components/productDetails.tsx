@@ -3,7 +3,6 @@
 import { Prisma } from "@prisma/client";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { ChefHatIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { lightningCssTransform } from "next/dist/build/swc/generated-native";
 import Image from "next/image";
 import { useState } from "react";
 
