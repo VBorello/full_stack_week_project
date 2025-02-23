@@ -42,7 +42,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     const handeleAddToCart = () =>{
         addProduct({
            ...product,
-           quantity: 1,
+           quantity: quantity,
         });
         toggleCart();
     };
@@ -78,7 +78,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                  onClick={handleDecreaseQuantity}>
                     <ChevronLeftIcon/>
                 </Button>
-                <p className="w-4">{quantity}</p>
+                <p className="w-3 mt-1 text-center">{quantity}</p>
                 <Button variant="destructive" className="h-8 w-8 rounded-xl"
                  onClick={handleIncreaseQuantity}>
                     <ChevronRightIcon/>
