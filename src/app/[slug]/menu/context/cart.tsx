@@ -12,6 +12,7 @@ export interface ICartContext {
     products: CartProduct[];
     toggleCart: () => void;
     addProduct: (product: CartProduct) => void;
+    DecreaseProductQuantity: (productId: string) => void;
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -19,6 +20,7 @@ export const CartContext = createContext<ICartContext>({
     products: [],
     toggleCart: () => {},
     addProduct: () => {},
+    DecreaseProductQuantity: () => {},
 })
 
 export const CartProvider = ({children}: {children: ReactNode}) => {
@@ -30,13 +32,11 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
     };
 
     const addProduct = (product: CartProduct) => {
-        
-
-    const productIsAlreadyOnTheCart = products.some(
-        (prevProduct) => prevProduct.id == product.id,
+        const productIsAlreadyOnTheCart = products.some(
+            (prevProduct) => prevProduct.id == product.id,
         );
         if(!productIsAlreadyOnTheCart) {
-            return setProducts((prev) => [...prev, product]);
+                return setProducts((prev) => [...prev, product]);
         }
         setProducts(prevProducts => {
             return prevProducts.map(prevProduct => {
@@ -46,7 +46,21 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
                         quantity : prevProduct.quantity + product.quantity,
                     };
                 }
-                return prevProduct
+                return prevProduct;
+            });
+        });
+    };
+    const DecreaseProductQuantity = (productId: string) => {
+        setProducts(prevProducts => {
+            return prevProducts.map(prevProduct => {
+                if(prevProduct.id != productId){
+                    return prevProduct;
+                }
+
+                if(prevProduct.quantity == 1){
+                    return prevProduct;
+                }
+                return {...prevProduct, quantity: prevProduct.quantity -1}
             });
         });
     };
@@ -57,6 +71,7 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
             products: products,
             toggleCart: toggleCart,
             addProduct: addProduct,
+            DecreaseProductQuantity: DecreaseProductQuantity, 
         }}
     >
         {children}    
