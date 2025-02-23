@@ -1,7 +1,9 @@
 "use client"
 
 import { Prisma } from "@prisma/client";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { ChefHatIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { lightningCssTransform } from "next/dist/build/swc/generated-native";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -35,9 +37,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         setQuantity((prev) => prev + 1);
     };
     return ( 
-        <div className="relative z-50 mt-[-1.5rem] flex flex-auto flex-col rounded-t-3xl  p-5 ">
+        <div className="relative z-50 mt-[-1.5rem] flex flex-auto flex-col rounded-t-3xl  p-5 overflow-hidden">
             
-            <div className="flex-auto">
+            <div className="flex-auto overflow-hidden">
                 {/*Restaurant*/}
             <div className="flex items-center gap-1.5">
                 <Image
@@ -56,7 +58,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             <h2 className="mt-1 text-xl font-semibold">{product.name}</h2>
             
             {/*preco e quantidade*/}
-            <div className="flex intens-center justify-between">
+            <div className="flex intens-center justify-between mt-3">
             <h3 className="text-xl font-semibold">
                 {formatCurrency(product.price)}
             </h3>
@@ -73,7 +75,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             </div>
             </div>
 
-            {/*Descrição do produto*/}
+            <ScrollArea className="h-full">
+                {/*Descrição do produto*/}
             <div className="mt-6 space-y-3">
                 <h4 className="font-semibold">Sobre</h4>
                 <p className="text-sm text-muted-foreground">{product.description}</p>
@@ -87,11 +90,18 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                     <ChefHatIcon size={18}/>
                     <h4 className="font-semibold">Ingredientes</h4>
                 </div>
-                <p className="text-sm text-muted-foreground">{product.description}</p>
+               <ul className="list-disc px-5 text-sm text-muted-foreground">
+                {product.ingredients.map((ingredients) => (
+                    <li key={ingredients}>{ingredients}</li>
+                ))}
+               </ul>
             </div>
+            </ScrollArea>
             </div>
             
-            <Button className="rounded-full w-full mt-6">Adicionar à sacola</Button>
+            <Button className="rounded-full w-full">
+                Adicionar à sacola
+            </Button>
         </div>
      );
 }
